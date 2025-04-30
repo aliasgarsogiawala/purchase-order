@@ -23,8 +23,8 @@ const App = () => {
   const [deliveryTiming, setDeliveryTiming] = useState('Immediate');
   const [transportMode, setTransportMode] = useState('By Road');
   const [paymentTerms, setPaymentTerms] = useState('45 days PDC');
-  const [freightCharges, setFreightCharges] = useState('Ex – Bhiwandi');
-  const [transportName, setTransportName] = useState('Bhosale Tempo Service Shirwal Branch Godown delivery');
+  const [freightCharges, setFreightCharges] = useState('Ex – Mumbai');
+  const [transportName, setTransportName] = useState('Ex - Ali Transport');
 
   // Load saved addresses and GST mapping from localStorage on component mount
   useEffect(() => {

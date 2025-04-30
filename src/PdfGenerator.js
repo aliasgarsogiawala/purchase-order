@@ -167,10 +167,10 @@ const PdfGenerator = ({ order }) => {
         doc.text(`Payment Terms: ${order.paymentTerms || '45 days PDC'}`, startX + 4, deliveryStartY + cellHeight + 6);
         
         doc.rect(startX + columnWidth, deliveryStartY + cellHeight, columnWidth, cellHeight);
-        doc.text(`Handling & Freight charges: ${order.freightCharges || 'Ex – Bhiwandi'}`, startX + columnWidth + 4, deliveryStartY + cellHeight + 6);
+        doc.text(`Handling & Freight charges: ${order.freightCharges || 'Ex – Mumbai'}`, startX + columnWidth + 4, deliveryStartY + cellHeight + 6);
         
         doc.rect(startX, deliveryStartY + cellHeight * 2, mentionRowWidth, cellHeight);
-        doc.text(`Transport Name : - ${order.transportName || 'Bhosale Tempo Service Shirwal Branch Godown delivery'}`, startX + 4, deliveryStartY + cellHeight * 2 + 6);
+        doc.text(`Transport Name : - ${order.transportName || 'Ex - Ali Transport' }`, startX + 4, deliveryStartY + cellHeight * 2 + 6);
         
         const signatureStartY = deliveryStartY + cellHeight * 3;
         const signatureWidth = mentionRowWidth / 3;
