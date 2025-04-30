@@ -26,7 +26,17 @@ const PdfGenerator = ({ order }) => {
     };
 
     const generatePDF = () => {
-        const doc = new jsPDF();
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4',
+            putOnlyUsedFonts: true
+        });
+        
+        doc.addFont('Helvetica', 'Helvetica', 'normal');
+        doc.setFont('Helvetica');
+        
+        const rupeeSymbol = 'Rs.';
         
         if (logoImg) {
             try {
@@ -117,7 +127,7 @@ const PdfGenerator = ({ order }) => {
         const totalY = itemStartY;
         doc.rect(startX, totalY, mentionRowWidth, cellHeight);
         doc.text('Total', startX + 125, totalY + 6);
-        doc.text(`₹${order.totalAmount ? order.totalAmount.toFixed(2) : '0.00'}`, startX + 150, totalY + 6);
+        doc.text(`${rupeeSymbol} ${order.totalAmount ? order.totalAmount.toFixed(2) : '0.00'}`, startX + 150, totalY + 6);
 
         const amountInWordsY = totalY + cellHeight;
         doc.rect(startX, amountInWordsY, mentionRowWidth, cellHeight);
@@ -125,21 +135,21 @@ const PdfGenerator = ({ order }) => {
 
         if (order.taxOption === 'cgst_sgst') {
             doc.rect(startX, amountInWordsY + cellHeight, mentionRowWidth / 2, cellHeight);
-            doc.text(`CGST @ ${order.cgst}%: ₹${order.totalCgst ? order.totalCgst.toFixed(2) : '0.00'}`, startX + 5, amountInWordsY + cellHeight + 6);
+            doc.text(`CGST @ ${order.cgst}%: ${rupeeSymbol} ${order.totalCgst ? order.totalCgst.toFixed(2) : '0.00'}`, startX + 5, amountInWordsY + cellHeight + 6);
             
             doc.rect(startX + mentionRowWidth / 2, amountInWordsY + cellHeight, mentionRowWidth / 2, cellHeight);
-            doc.text(`SGST @ ${order.sgst}%: ₹${order.totalSgst ? order.totalSgst.toFixed(2) : '0.00'}`, startX + mentionRowWidth / 2 + 5, amountInWordsY + cellHeight + 6);
+            doc.text(`SGST @ ${order.sgst}%: ${rupeeSymbol} ${order.totalSgst ? order.totalSgst.toFixed(2) : '0.00'}`, startX + mentionRowWidth / 2 + 5, amountInWordsY + cellHeight + 6);
             
             const finalTotalY = amountInWordsY + cellHeight * 2;
             doc.rect(startX, finalTotalY, mentionRowWidth, cellHeight);
-            doc.text(`Grand Total: ₹${order.grandTotal ? order.grandTotal.toFixed(2) : '0.00'}`, startX + mentionRowWidth / 2 + 5, finalTotalY + 6);
+            doc.text(`Grand Total: ${rupeeSymbol} ${order.grandTotal ? order.grandTotal.toFixed(2) : '0.00'}`, startX + mentionRowWidth / 2 + 5, finalTotalY + 6);
         } else {
             doc.rect(startX, amountInWordsY + cellHeight, mentionRowWidth, cellHeight);
-            doc.text(`IGST @ ${order.igst}%: ₹${order.totalIgst ? order.totalIgst.toFixed(2) : '0.00'}`, startX + 5, amountInWordsY + cellHeight + 6);
+            doc.text(`IGST @ ${order.igst}%: ${rupeeSymbol} ${order.totalIgst ? order.totalIgst.toFixed(2) : '0.00'}`, startX + 5, amountInWordsY + cellHeight + 6);
             
             const finalTotalY = amountInWordsY + cellHeight * 2;
             doc.rect(startX, finalTotalY, mentionRowWidth, cellHeight);
-            doc.text(`Grand Total: ₹${order.grandTotal ? order.grandTotal.toFixed(2) : '0.00'}`, startX + mentionRowWidth / 2 + 5, finalTotalY + 6);
+            doc.text(`Grand Total: ${rupeeSymbol} ${order.grandTotal ? order.grandTotal.toFixed(2) : '0.00'}`, startX + mentionRowWidth / 2 + 5, finalTotalY + 6);
         }
 
         const deliveryStartY = amountInWordsY + cellHeight * 3;
